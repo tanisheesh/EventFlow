@@ -7,7 +7,6 @@ import bcrypt
 from functools import wraps
 from typing import List
 import datetime
-from flask_migrate import Migrate
 
 # Load environment variables
 load_dotenv()
@@ -20,9 +19,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
-
-# Initialize Flask-Migrate
-migrate = Migrate(app, db)
 
 # Add context processor for current year
 @app.context_processor
@@ -761,7 +757,6 @@ def delete_organizer(user_id):
 if __name__ == '__main__':
     with app.app_context():
         # Create database tables if they don't exist
-        # In production, consider using Flask-Migrate for database migrations
         db.create_all()
     
     # Get port from environment variable for Render deployment
