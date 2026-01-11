@@ -26,8 +26,6 @@ wheels/
 MANIFEST
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -55,7 +53,6 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
 
 # Flask stuff:
 instance/
@@ -118,6 +115,9 @@ dmypy.json
 *.sqlite
 *.sqlite3
 
+# Flask-Migrate (if not using migrations)
+migrations/
+
 # IDE files
 .vscode/
 .idea/
@@ -133,3 +133,9 @@ dmypy.json
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local development files
+.env.local
+.env.development
+.env.test
+.env.production

@@ -4,5 +4,4 @@ SQLAlchemy==1.4.49
 Werkzeug>=3.0.0
 python-dotenv>=0.19
 bcrypt>=3.2
-Flask-Migrate>=4.0.5
 gunicorn>=21.2.0
