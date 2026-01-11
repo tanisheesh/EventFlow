@@ -15,7 +15,7 @@ load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Tanishpoddar.18@127.0.0.1/eventhub'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///eventhub.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize SQLAlchemy
@@ -36,7 +36,7 @@ class User(db.Model):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    user_type = db.Column(db.Enum('organizer', 'attendee', 'administrator'), nullable=False)
+    user_type = db.Column(db.String(20), nullable=False)  # 'organizer', 'attendee', 'administrator'
     orders = db.relationship('Order', backref='user', lazy=True)
 
 class Venue(db.Model):
@@ -110,7 +110,7 @@ class Payment(db.Model):
     __tablename__ = 'payment'
     payment_id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.order_id'), nullable=False, unique=True)
-    payment_method = db.Column(db.Enum('credit card', 'paypal', 'other'), nullable=False)
+    payment_method = db.Column(db.String(20), nullable=False)  # 'credit card', 'paypal', 'other'
     transaction_id = db.Column(db.String(255))
 
 class Ticket(db.Model):
@@ -182,6 +182,11 @@ def organizer_required(f):
 
 
 # --- Routes ---
+@app.route('/favicon.ico')
+def favicon():
+    """Serve favicon from static folder."""
+    return app.send_static_file('favicon.ico')
+
 @app.route('/')
 def index():
     """Home page displaying upcoming events."""
@@ -219,7 +224,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
 
-        if user and check_password(user.password.encode('utf-8'), password):
+        if user and check_password(user.password, password):
             session['user_id'] = user.user_id
             session['user_name'] = user.name
             session['user_role'] = user.user_type
@@ -758,4 +763,8 @@ if __name__ == '__main__':
         # Create database tables if they don't exist
         # In production, consider using Flask-Migrate for database migrations
         db.create_all()
-    app.run(debug=True) # Set debug=False in production
+    
+    # Get port from environment variable for Render deployment
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    app.run(host='0.0.0.0', port=port, debug=debug)
