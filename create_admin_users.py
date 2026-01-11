@@ -11,38 +11,49 @@ def create_admin_users():
             user_type="administrator"
         )
 
-        # Create organizer accounts
-        organizer1 = User(
-            name="Event Organizer 1",
-            email="organizer1@eventhub.com",
-            password=hash_password("Org1@123"),  # Strong password
+        # Create organizer account
+        organizer = User(
+            name="Event Organizer",
+            email="organizer@eventhub.com",
+            password=hash_password("Organizer@123"),  # Strong password
             user_type="organizer"
         )
 
-        organizer2 = User(
-            name="Event Organizer 2",
-            email="organizer2@eventhub.com",
-            password=hash_password("Org2@123"),  # Strong password
-            user_type="organizer"
+        # Create attendee/buyer account
+        attendee = User(
+            name="Event Attendee",
+            email="buyer@eventhub.com",
+            password=hash_password("Buyer@123"),  # Strong password
+            user_type="attendee"
         )
 
         try:
-            # Add users to database
-            db.session.add(admin)
-            db.session.add(organizer1)
-            db.session.add(organizer2)
+            # Check if users already exist
+            existing_admin = User.query.filter_by(email="admin@eventhub.com").first()
+            existing_organizer = User.query.filter_by(email="organizer@eventhub.com").first()
+            existing_attendee = User.query.filter_by(email="buyer@eventhub.com").first()
+
+            # Add users to database if they don't exist
+            if not existing_admin:
+                db.session.add(admin)
+            if not existing_organizer:
+                db.session.add(organizer)
+            if not existing_attendee:
+                db.session.add(attendee)
+            
             db.session.commit()
-            print("Successfully created administrator and organizer accounts!")
-            print("\nLogin credentials:")
+            print("Successfully created test accounts!")
+            print("\n=== TEST LOGIN CREDENTIALS ===")
             print("Administrator:")
             print("Email: admin@eventhub.com")
             print("Password: Admin@123")
-            print("\nOrganizer 1:")
-            print("Email: organizer1@eventhub.com")
-            print("Password: Org1@123")
-            print("\nOrganizer 2:")
-            print("Email: organizer2@eventhub.com")
-            print("Password: Org2@123")
+            print("\nOrganizer:")
+            print("Email: organizer@eventhub.com")
+            print("Password: Organizer@123")
+            print("\nBuyer/Attendee:")
+            print("Email: buyer@eventhub.com")
+            print("Password: Buyer@123")
+            print("===============================")
         except Exception as e:
             db.session.rollback()
             print(f"Error creating accounts: {e}")

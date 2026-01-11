@@ -24,29 +24,76 @@
              <p class="mt-3 text-center text-muted">
                 Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a>
             </p>
-             <p class="mt-2 text-center text-muted" style="font-size: 0.8em;">
-                 Hint: Use organizer@example.com or attendee@example.com with password 'password' for demo.
-             </p>
+        </div>
+    </div>
+    
+    <!-- Test Credentials Card -->
+    <div class="card test-credentials-card mt-4">
+        <div class="card-header text-center bg-info text-white">
+            <h5 class="mb-0">🧪 Test Credentials</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <h6 class="text-primary">Administrator</h6>
+                    <p class="mb-1"><strong>Email:</strong> admin@eventhub.com</p>
+                    <p class="mb-2"><strong>Password:</strong> Admin@123</p>
+                    <button class="btn btn-sm btn-outline-primary" onclick="fillCredentials('admin@eventhub.com', 'Admin@123')">Use These</button>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-success">Organizer</h6>
+                    <p class="mb-1"><strong>Email:</strong> organizer@eventhub.com</p>
+                    <p class="mb-2"><strong>Password:</strong> Organizer@123</p>
+                    <button class="btn btn-sm btn-outline-success" onclick="fillCredentials('organizer@eventhub.com', 'Organizer@123')">Use These</button>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-warning">Buyer/Attendee</h6>
+                    <p class="mb-1"><strong>Email:</strong> buyer@eventhub.com</p>
+                    <p class="mb-2"><strong>Password:</strong> Buyer@123</p>
+                    <button class="btn btn-sm btn-outline-warning" onclick="fillCredentials('buyer@eventhub.com', 'Buyer@123')">Use These</button>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <small class="text-muted">Click "Use These" buttons to auto-fill credentials for testing</small>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+function fillCredentials(email, password) {
+    document.getElementById('email').value = email;
+    document.getElementById('password').value = password;
+}
+</script>
 {% endblock %}
 
 {% block head_extra %}
 <style>
     .auth-container {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: 70vh; /* Adjust as needed */
+        min-height: 70vh;
+        padding: 20px;
     }
     .auth-card {
         width: 100%;
-        max-width: 400px; /* Limit card width */
+        max-width: 400px;
+    }
+    .test-credentials-card {
+        width: 100%;
+        max-width: 800px;
     }
     .btn-block {
         display: block;
         width: 100%;
+    }
+    @media (max-width: 768px) {
+        .test-credentials-card .col-md-4 {
+            margin-bottom: 20px;
+        }
     }
 </style>
 {% endblock %}
