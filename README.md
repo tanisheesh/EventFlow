@@ -69,7 +69,7 @@ EventFlow/
 
 1. **📥 Clone the repository**
    ```bash
-   git clone https://github.com/tanishpoddar/EventFlow.git
+   git clone https://github.com/tanisheesh/EventFlow.git
    cd EventFlow
    ```
 
@@ -193,7 +193,7 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 <div align="center">
 
-**Made with ❤️ by [Tanish Poddar](https://github.com/tanishpoddar)**
+**Made with ❤️ by [Tanish Poddar](https://github.com/tanisheesh)**
 
 ⭐ **Star this repo if you found it helpful!**
 
