@@ -7,6 +7,7 @@ import bcrypt
 from functools import wraps
 from typing import List
 import datetime
+import reqly
 
 # Load environment variables
 load_dotenv()
@@ -19,6 +20,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
+
+# Reqly — auto-instrument all routes
+reqly.instrument(
+    app,
+    service_name="eventflow",
+    collector_url=os.environ.get("REQLY_COLLECTOR_URL", "http://localhost:8000"),
+    api_key=os.environ.get("REQLY_API_KEY", ""),
+)
 
 # Add context processor for current year
 @app.context_processor

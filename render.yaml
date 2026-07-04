@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: EventFlow
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python start.py
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///eventhub.db
+      - key: PORT
+        value: "5000"
+      # Reqly — API observability
+      # Set REQLY_COLLECTOR_URL to your self-hosted collector (e.g. http://<your-ec2-ip>:8000)
+      # If not set, Reqly runs in fail-open mode — EventFlow still works normally.
+      - key: REQLY_COLLECTOR_URL
+        value: ""
+      - key: REQLY_API_KEY
+        value: ""
