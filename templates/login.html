@@ -39,6 +39,12 @@
                     <p class="mb-1"><strong>Email:</strong> admin@eventhub.com</p>
                     <p class="mb-2"><strong>Password:</strong> Admin@123</p>
                     <button class="btn btn-sm btn-outline-primary" onclick="fillCredentials('admin@eventhub.com', 'Admin@123')">Use These</button>
+                    {% if reqly_dashboard_url %}
+                    <p class="mt-2 mb-0" style="font-size:.75rem;color:#0891b2;">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><path d="M2 12h3l3-8 4 16 3-10 2 2h5"/></svg>
+                        Login here to view Reqly metrics
+                    </p>
+                    {% endif %}
                 </div>
                 <div class="col-md-4">
                     <h6 class="text-success">Organizer</h6>
