@@ -52,11 +52,15 @@
             </p>
         </div>
         <div class="reqly-banner-right">
-            <a href="http://localhost:5173" target="_blank" rel="noopener" class="btn btn-reqly">
+            {% if reqly_dashboard_url %}
+            <a href="{{ reqly_dashboard_url }}" target="_blank" rel="noopener" class="btn btn-reqly">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 Open Dashboard
             </a>
-            <a href="http://localhost:8000/docs" target="_blank" rel="noopener" class="btn btn-reqly-ghost">API Docs</a>
+            {% endif %}
+            {% if reqly_collector_url %}
+            <a href="{{ reqly_collector_url }}/docs" target="_blank" rel="noopener" class="btn btn-reqly-ghost">API Docs</a>
+            {% endif %}
         </div>
     </div>
 

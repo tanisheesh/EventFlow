@@ -22,3 +22,6 @@ services:
         value: ""
       - key: REQLY_API_KEY
         value: ""
+      # Set REQLY_DASHBOARD_URL to show the "Open Dashboard" button and nav Metrics link
+      - key: REQLY_DASHBOARD_URL
+        value: ""

@@ -29,10 +29,14 @@ reqly.instrument(
     api_key=os.environ.get("REQLY_API_KEY", ""),
 )
 
-# Add context processor for current year
+# Add context processor for current year and Reqly config
 @app.context_processor
-def inject_now():
-    return {'now': datetime.datetime.now()}
+def inject_globals():
+    return {
+        'now': datetime.datetime.now(),
+        'reqly_dashboard_url': os.environ.get('REQLY_DASHBOARD_URL', ''),
+        'reqly_collector_url': os.environ.get('REQLY_COLLECTOR_URL', ''),
+    }
 
 # --- Database Models ---
 class User(db.Model):
