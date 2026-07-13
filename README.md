@@ -15,6 +15,19 @@
 
 </div>
 
+## 📡 Powered by Reqly
+
+EventFlow is instrumented with **[Reqly](https://github.com/tanisheesh/reqly)** — a self-hosted API observability tool that tracks latency, error rates, and request patterns in real time.
+
+| | |
+|---|---|
+| **Live Metrics Dashboard** | [reqly-eventflow-dashboard.onrender.com](https://reqly-eventflow-dashboard.onrender.com) |
+| **Collector API** | [reqly-eventflow-collector.onrender.com](https://reqly-eventflow-collector.onrender.com) |
+
+> **To view Reqly metrics:** Login as **Administrator** → click **Metrics** in the nav bar.
+
+---
+
 ## ✨ Features
 
 <table>
@@ -143,6 +156,8 @@ EventFlow/
 </table>
 
 💡 **These credentials are displayed on the login page with convenient "Use These" buttons**
+
+> 📡 **Login as Administrator** to access the **Reqly metrics dashboard** from the nav bar.
 
 🎮 **[Try Live Demo →](https://eventflow-g2h5.onrender.com)**
 
