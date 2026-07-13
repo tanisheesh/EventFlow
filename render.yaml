@@ -19,9 +19,8 @@ services:
       # Set REQLY_COLLECTOR_URL to your self-hosted collector (e.g. http://<your-ec2-ip>:8000)
       # If not set, Reqly runs in fail-open mode — EventFlow still works normally.
       - key: REQLY_COLLECTOR_URL
-        value: ""
+        value: "https://reqly-eventflow-collector.onrender.com"
       - key: REQLY_API_KEY
         value: ""
-      # Set REQLY_DASHBOARD_URL to show the "Open Dashboard" button and nav Metrics link
       - key: REQLY_DASHBOARD_URL
-        value: "https://reqly-dashboard-eventflow.onrender.com"
+        value: "https://reqly-eventflow-dashboard.onrender.com"
