@@ -1,215 +1,123 @@
-# 🎫 EventFlow
+<p align="center">
+  <img src="docs/assets/logo.svg" width="64" height="64" alt="EventFlow">
+</p>
 
-<div align="center">
+<h1 align="center">EventFlow</h1>
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-EventFlow-blue?style=for-the-badge)](https://eventflow-g2h5.onrender.com)
-[![Python](https://img.shields.io/badge/Python-3.8+-green?style=for-the-badge&logo=python)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-2.0+-red?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com)
-[![SQLite](https://img.shields.io/badge/SQLite-Database-lightblue?style=for-the-badge&logo=sqlite)](https://sqlite.org)
+<p align="center">
+  <strong>Event management in Flask: organizers run events, venues, speakers and ticket types; attendees book and cancel tickets. Monitored live by Reqly.</strong>
+</p>
 
-**A comprehensive event management platform built with Flask**
+<p align="center">
+  <a href="https://eventflow-g2h5.onrender.com"><img src="https://img.shields.io/badge/live_demo-008080?style=flat-square" alt="Live Demo"></a>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white" alt="Flask">
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black" alt="Render">
+  <img src="https://img.shields.io/badge/license-GPL--3.0-008080?style=flat-square" alt="License">
+</p>
 
-*Organize events, manage venues, sell tickets, and track attendance - all in one place*
+---
 
-[🌟 Try Live Demo](https://eventflow-g2h5.onrender.com) • [📖 Documentation](#getting-started)
+## What is EventFlow?
 
-</div>
+EventFlow is a small, complete event-ticketing app: organizers publish events with venues, speakers and
+priced ticket types, and attendees browse, book and cancel tickets, with stock kept in sync on every
+booking and cancellation. It is also the live demo for [Reqly](https://github.com/tanisheesh/reqly), the
+self-hosted API observability tool, so every request it serves shows up on a public metrics dashboard.
 
-## 📡 Powered by Reqly
+> **Live demo →** [eventflow-g2h5.onrender.com](https://eventflow-g2h5.onrender.com) (free tier, the first load can take ~30s)
 
-EventFlow is instrumented with **[Reqly](https://github.com/tanisheesh/reqly)** — a self-hosted API observability tool that tracks latency, error rates, and request patterns in real time.
+| Role | Email | Password |
+|---|---|---|
+| 👑 Administrator | `admin@eventhub.com` | `Admin@123` |
+| 🎯 Organizer | `organizer@eventhub.com` | `Organizer@123` |
+| 🛒 Attendee | `buyer@eventhub.com` | `Buyer@123` |
+
+The login page has "Use these" buttons for each account.
+
+---
+
+## What you get
+
+- **Three roles** — attendees book tickets, organizers manage everything on a dashboard, administrators also manage organizers
+- **Events, venues and speakers** — create, edit and delete each from the organizer dashboard
+- **Ticket types with stock** — priced tiers with a quantity that goes down on booking and back up on cancellation
+- **Orders** — booking several tickets creates one order; cancelling the last ticket removes it
+- **Live API monitoring** — latency, errors, releases and per-user traffic in [Reqly](#monitored-by-reqly)
+
+---
+
+## Monitored by Reqly
+
+EventFlow is instrumented with the [`reqly`](https://pypi.org/project/reqly/) Python SDK in one call:
+
+```python
+reqly.instrument(app, service_name="eventflow", consumer=reqly_consumer)
+```
 
 | | |
 |---|---|
-| **Live Metrics Dashboard** | [reqly-eventflow-dashboard.onrender.com](https://reqly-eventflow-dashboard.onrender.com) |
-| **Collector API** | [reqly-eventflow-collector.onrender.com](https://reqly-eventflow-collector.onrender.com) |
+| **Metrics dashboard** | [reqly-eventflow-dashboard.onrender.com](https://reqly-eventflow-dashboard.onrender.com) (public, read-only) |
+| **Collector API** | [reqly-eventflow-collector.onrender.com/docs](https://reqly-eventflow-collector.onrender.com/docs) |
+| **Reqly docs** | [reqly.tanisheesh.in/docs](https://reqly.tanisheesh.in/docs/) |
 
-> **To view Reqly metrics:** Login as **Administrator** → click **Metrics** in the nav bar.
+Every route reports p50/p95/p99 latency, error rate and status codes, tagged with the deployed commit
+(`RENDER_GIT_COMMIT`) and the logged-in user, hashed with `REQLY_CONSUMER_SALT` before it leaves the app.
+If the collector is down, EventFlow keeps working: the SDK is fail-open. In the app, log in as the
+administrator and click **Metrics** in the nav bar, or follow "Monitored by Reqly" in the footer.
 
 ---
 
-## ✨ Features
+## Stack
 
-<table>
-<tr>
-<td width="50%">
+| Layer | Tech |
+|---|---|
+| Frontend | Jinja2 templates · CSS · vanilla JS |
+| Backend | Python · Flask 3 · Flask-SQLAlchemy |
+| Database | SQLite |
+| Auth | Flask sessions · bcrypt password hashes · role decorators |
+| Observability | Reqly Python SDK |
+| Infra | Render (Blueprint in `render.yaml`) |
 
-### 👥 For Attendees
-- 🔐 **Secure Authentication** - Safe signup and login system
-- 🔍 **Event Discovery** - Browse events with detailed information
-- 🎟️ **Ticket Booking** - Book tickets with multiple pricing tiers
-- 📱 **Ticket Management** - View and manage your bookings
-- ❌ **Easy Cancellation** - Cancel tickets with automatic refunds
+---
 
-</td>
-<td width="50%">
+## Run it locally
 
-### 🎯 For Organizers
-- 📊 **Dashboard** - Comprehensive event statistics and management
-- 📅 **Event Management** - Create, edit, and delete events
-- 🏢 **Venue Management** - Add and manage event venues
-- 🎤 **Speaker Management** - Add speakers with detailed profiles
-- 🎫 **Ticket Control** - Create ticket types with custom pricing
-- 📈 **Sales Overview** - Track orders and ticket sales
-
-</td>
-</tr>
-</table>
-
-## 🏗️ Project Structure
-```
-EventFlow/
-├── 🐍 app.py              # Main application file
-├── 🚀 start.py            # Production startup script
-├── ⚙️  config.py           # Configuration settings
-├── 📦 requirements.txt    # Python dependencies
-├── 🗄️  schema_sqlite.sql   # SQLite database schema
-├── 👤 create_admin_users.py  # Admin user creation script
-├── 🧹 clean_data.py       # Database cleanup utility
-├── 🎨 static/            # Static assets (CSS, JS, images)
-├── 📄 templates/         # HTML templates
-└── 🔐 .env               # Environment variables
+```bash
+git clone https://github.com/tanisheesh/EventFlow && cd EventFlow
+python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env                              # set SECRET_KEY
+python start.py                                   # creates tables + demo accounts, serves :5000
 ```
 
-## 🚀 Getting Started
+Full guide, including running a local Reqly collector: [docs/SETUP.md](docs/SETUP.md).
 
-### 📋 Prerequisites
-- 🐍 **Python 3.8+** - Programming language
-- 📦 **pip** - Python package manager  
-- 🔧 **Git** - Version control
+---
 
-### 💻 Local Development
+## Docs
 
-1. **📥 Clone the repository**
-   ```bash
-   git clone https://github.com/tanisheesh/EventFlow.git
-   cd EventFlow
-   ```
-
-2. **🐍 Create virtual environment**
-   ```bash
-   python -m venv venv
-   # Windows
-   venv\Scripts\activate
-   # Unix/MacOS
-   source venv/bin/activate
-   ```
-
-3. **📦 Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **⚙️ Configure environment**
-   Create a `.env` file:
-   ```env
-   FLASK_APP=app.py
-   FLASK_ENV=development
-   DATABASE_URL=sqlite:///eventhub.db
-   SECRET_KEY=your-secret-key-here
-   PORT=5000
-   ```
-
-5. **🚀 Launch application**
-   ```bash
-   python create_admin_users.py  # Create test accounts (optional)
-   python app.py
-   ```
-   
-   🌐 **Access at**: `http://127.0.0.1:5000`
-
-## 🔑 Test Credentials
-
-<div align="center">
-
-### 🧪 Ready-to-Use Demo Accounts
-
-<table>
-<tr>
-<th>👑 Administrator</th>
-<th>🎯 Organizer</th>
-<th>🛒 Buyer/Attendee</th>
-</tr>
-<tr>
-<td align="center">
-<strong>Email:</strong><br>
-<code>admin@eventhub.com</code><br>
-<strong>Password:</strong><br>
-<code>Admin@123</code><br>
-<em>Full system access</em>
-</td>
-<td align="center">
-<strong>Email:</strong><br>
-<code>organizer@eventhub.com</code><br>
-<strong>Password:</strong><br>
-<code>Organizer@123</code><br>
-<em>Event management</em>
-</td>
-<td align="center">
-<strong>Email:</strong><br>
-<code>buyer@eventhub.com</code><br>
-<strong>Password:</strong><br>
-<code>Buyer@123</code><br>
-<em>Ticket purchasing</em>
-</td>
-</tr>
-</table>
-
-💡 **These credentials are displayed on the login page with convenient "Use These" buttons**
-
-> 📡 **Login as Administrator** to access the **Reqly metrics dashboard** from the nav bar.
-
-🎮 **[Try Live Demo →](https://eventflow-g2h5.onrender.com)**
-
-</div>
-
-## 🛠️ Development
-
-### 🗄️ Database Management
-- **Migrations**: Use Flask-SQLAlchemy for database operations
-  ```bash
-  python -c "from app import app, db; app.app_context().push(); db.create_all()"
-  ```
-
-### 📝 Code Style
-- 📏 Uses `.hintrc` for code style guidelines
-- 🐍 Follows PEP 8 standards for Python code
-
-## 🗄️ Database Schema
-
-EventFlow uses **SQLite** with these main tables:
-
-| Table | Description |
-|-------|-------------|
-| 👤 **User** | User information and roles |
-| 📅 **Event** | Event details, dates, and venues |
-| 🏢 **Venue** | Venue information and capacity |
-| 🎤 **Speaker** | Speaker details linked to events |
-| 🎫 **TicketType** | Different ticket types for events |
-| 🎟️ **Ticket** | Individual tickets booked by users |
-| 📦 **Order** | Groups tickets purchased by a user |
-| 💳 **Payment** | Payment information for orders |
-
-📋 **For detailed schema**: See `schema_sqlite.sql`
-
-## ⚙️ Configuration
-
-Configure the application through:
-
-1. 🔐 **Environment Variables** - Set in `.env` file for local development
-2. 📝 **config.py** - Contains default configuration values  
-3. 🌐 **Render Environment Variables** - Set in Render dashboard for production
-
-## 📄 License
-
-This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
+| Document | Description |
+|---|---|
+| [PRD](docs/PRD.md) | Product requirements — goals, user stories, non-goals |
+| [Architecture](docs/ARCHITECTURE.md) | System design, data flow, component breakdown |
+| [Decisions](docs/DECISIONS.md) | Every major technical decision and why |
+| [Setup](docs/SETUP.md) | Local dev setup and env vars |
+| [Deploy](docs/DEPLOY.md) | Production deployment on Render, rollback |
+| [Contributing](CONTRIBUTING.md) | How to propose changes |
+| [Changelog](CHANGELOG.md) | What changed in each release |
+| [Security](SECURITY.md) | How to report a vulnerability |
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by [Tanish Poddar](https://github.com/tanisheesh)**
+<h3>Tanish Poddar</h3>
 
-⭐ **Star this repo if you found it helpful!**
+<a href="https://tanisheesh.in"><img src="https://img.shields.io/badge/Website-tanisheesh.in-111111?style=flat-square&logo=googlechrome&logoColor=white" alt="Website"></a>
+<a href="https://linkedin.com/in/tanisheesh"><img src="https://img.shields.io/badge/LinkedIn-tanisheesh-0A66C2?style=flat-square" alt="LinkedIn"></a>
+<a href="https://github.com/tanisheesh"><img src="https://img.shields.io/badge/GitHub-tanisheesh-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"></a>
+<a href="mailto:hey@tanisheesh.in"><img src="https://img.shields.io/badge/Email-hey%40tanisheesh.in-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email"></a>
 
 </div>
