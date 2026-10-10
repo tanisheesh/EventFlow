@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ organizer.name }}</td>
                             <td>{{ organizer.email }}</td>
-                            <td>{{ Event.query.filter_by(organizer_id=organizer.user_id).count() }}</td>
+                            <td>{{ event_counts.get(organizer.user_id, 0) }}</td>
                             <td>
                                 <form action="{{ url_for('delete_organizer', user_id=organizer.user_id) }}" method="POST" style="display: inline;">
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this organizer and all their events?')">Delete</button>

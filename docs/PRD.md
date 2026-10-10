@@ -33,7 +33,7 @@ real traffic instead of synthetic data.
 - **Real payments** — bookings create orders without charging anyone. The `Payment` table exists in the schema but nothing writes to it yet.
 - **Email notifications** — no booking confirmations or reminders.
 - **Seat maps** — tickets have an optional `seat_number`, but there is no seat picker.
-- **Per-organizer ownership** — every organizer sees and manages every event.
+- **Per-organizer ownership** — events record who created them, but every organizer can manage every event.
 
 ---
 

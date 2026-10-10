@@ -70,6 +70,7 @@ class Event(db.Model):
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=True)  # Keep the old time field for now
     location_id = db.Column(db.Integer, db.ForeignKey('venue.venue_id'), nullable=False)
+    organizer_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=True)
     speakers = db.relationship('Speaker', backref='event', lazy=True)
     tickets = db.relationship('Ticket', backref='event', lazy=True)
     
@@ -334,7 +335,8 @@ def create_event():
             description=description,
             date=date,
             time=datetime.datetime.strptime(start_time, '%H:%M').time() if start_time else None,
-            location_id=location_id
+            location_id=location_id,
+            organizer_id=session['user_id']
         )
 
         # Set the new time properties
@@ -735,7 +737,11 @@ def my_tickets():
 def manage_organizers():
     """Administrator view to manage organizers."""
     organizers = User.query.filter_by(user_type='organizer').all()
-    return render_template('manage_organizers.html', organizers=organizers)
+    event_counts = dict(
+        db.session.query(Event.organizer_id, db.func.count(Event.event_id))
+        .group_by(Event.organizer_id).all()
+    )
+    return render_template('manage_organizers.html', organizers=organizers, event_counts=event_counts)
 
 @app.route('/admin/organizers/<int:user_id>/delete', methods=['POST'])
 @login_required(role="administrator")

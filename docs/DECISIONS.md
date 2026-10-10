@@ -55,7 +55,7 @@
 - **CSRF tokens on every form** — forms currently rely on the session cookie alone.
 - **Gunicorn in production** — `gunicorn` is already a dependency, but `start.py` serves with Flask's built-in server.
 - **Postgres with migrations** — so data survives deploys and the schema can change safely.
-- **An organizer column on events** — so organizers manage only their own events and removing an organizer can remove their events.
+- **Ownership checks** — events now record their organizer; organizers should only be able to edit and delete their own.
 
 ---
 

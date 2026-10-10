@@ -4,6 +4,14 @@ All notable changes to **EventFlow** are documented here.
 
 ---
 
+## [Unreleased]
+
+### 🐛 Fixed
+- Administrators no longer get an error on every page (broken Admin link in the nav)
+- The Manage Organizers page loads, shows each organizer's event count, and deleting an organizer works
+
+---
+
 ## [1.0.0] — 2026-10-11
 
 First tagged release, covering everything built since April 2025.
@@ -27,6 +35,7 @@ First tagged release, covering everything built since April 2025.
 
 ---
 
+[Unreleased]: https://github.com/tanisheesh/EventFlow/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/tanisheesh/EventFlow/releases/tag/v1.0.0
 
 ---

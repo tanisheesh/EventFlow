@@ -77,7 +77,7 @@ Booking a ticket, end to end:
 
 - `user` — `user_id`, `name`, unique `email`, bcrypt `password`, `user_type` (`attendee` / `organizer` / `administrator`)
 - `venue` — `venue_id`, `name`, `address`, `capacity`, `city`, `state`, `zip_code`
-- `event` — `event_id`, `name`, `description`, `date`, `time`, `location_id` → venue
+- `event` — `event_id`, `name`, `description`, `date`, `time`, `location_id` → venue, `organizer_id` → user (who created it)
 - `speaker` — `speaker_id`, `name`, `bio`, `event_id` → event
 - `tickettype` — `ticket_type_id`, `event_id` → event, `type`, `price`, `quantity` (remaining stock)
 - `order` — `order_id`, `user_id` → user, `date`, `total_price`, `payment_id` → payment
@@ -142,8 +142,8 @@ No indexes beyond primary keys and the unique `email` / `order_id` constraints.
 ## 9. Explicit Scope Cuts
 
 - **Payments** — the `Payment` model is in place, but bookings don't charge.
-- **Migrations** — `db.create_all()` only creates missing tables; schema changes on existing data need manual SQL.
-- **Event ownership** — events have no organizer column, so every organizer manages every event.
+- **Migrations** — `db.create_all()` only creates missing tables; `start.py` adds the one later column (`event.organizer_id`) by hand. Further schema changes need the same.
+- **Event ownership** — events record their organizer (used by the admin page), but every organizer can still manage every event.
 
 ---
 

@@ -11,6 +11,11 @@ if __name__ == '__main__':
     with app.app_context():
         # Create all database tables
         db.create_all()
+        # create_all() doesn't add columns to existing tables: add event.organizer_id
+        # to databases created before it existed
+        if 'organizer_id' not in [c['name'] for c in db.inspect(db.engine).get_columns('event')]:
+            with db.engine.begin() as conn:
+                conn.exec_driver_sql('ALTER TABLE event ADD COLUMN organizer_id INTEGER REFERENCES user(user_id)')
         print("Database tables created successfully!")
         
         # Create test users for demo purposes

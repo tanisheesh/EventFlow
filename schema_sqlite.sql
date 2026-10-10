@@ -38,7 +38,9 @@ CREATE TABLE Event (
   date DATE NOT NULL,
   time TIME,
   location_id INTEGER NOT NULL,
-  FOREIGN KEY (location_id) REFERENCES Venue(venue_id)
+  organizer_id INTEGER,
+  FOREIGN KEY (location_id) REFERENCES Venue(venue_id),
+  FOREIGN KEY (organizer_id) REFERENCES User(user_id)
 );
 
 -- Create Order table
