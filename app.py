@@ -261,7 +261,7 @@ def signup():
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
-        user_type = request.form['user_type']
+        user_type = 'attendee'  # signup only creates attendees; never trust a role from the form
 
         if password != confirm_password:
             flash('Passwords do not match.', 'danger')
