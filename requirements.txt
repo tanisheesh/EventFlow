@@ -3,6 +3,6 @@ reqly>=0.5.4
 Flask-SQLAlchemy==3.0.5
 SQLAlchemy==2.1.4
 Werkzeug>=3.1.9
-python-dotenv>=0.19
+python-dotenv>=1.2.4
 bcrypt>=5.0.0
 gunicorn>=26.2.0
