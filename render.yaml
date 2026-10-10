@@ -15,12 +15,16 @@ services:
         value: sqlite:///eventhub.db
       - key: PORT
         value: "5000"
-      # Reqly — API observability
-      # Set REQLY_COLLECTOR_URL to your self-hosted collector (e.g. http://<your-ec2-ip>:8000)
-      # If not set, Reqly runs in fail-open mode — EventFlow still works normally.
+      # Reqly — API observability. If the collector is unreachable, EventFlow
+      # still works normally (the SDK is fail-open). The release is read from
+      # RENDER_GIT_COMMIT, so every alert names the deploy that was running.
       - key: REQLY_COLLECTOR_URL
         value: "https://reqly-eventflow-collector.onrender.com"
       - key: REQLY_API_KEY
-        value: ""
+        sync: false  # the collector's REQLY_INGEST_KEY, set in the Render dashboard
+      - key: REQLY_ENVIRONMENT
+        value: production
+      - key: REQLY_CONSUMER_SALT
+        generateValue: true
       - key: REQLY_DASHBOARD_URL
         value: "https://reqly-eventflow-dashboard.onrender.com"

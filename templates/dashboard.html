@@ -48,7 +48,7 @@
                 <span class="reqly-live-label">monitoring</span>
             </div>
             <p class="reqly-desc">
-                API observability active on <code>eventflow</code> — latency percentiles, error rates, and status codes collected per route in real time.
+                API observability active on <code>eventflow</code> — latency percentiles, error rates and status codes per route, tagged with the running release and the (hashed) user behind each request, with alerts when a route drifts from its usual baseline.
             </p>
         </div>
         <div class="reqly-banner-right">
@@ -59,8 +59,9 @@
             </a>
             {% endif %}
             {% if reqly_collector_url %}
-            <a href="{{ reqly_collector_url }}/docs" target="_blank" rel="noopener" class="btn btn-reqly-ghost">API Docs</a>
+            <a href="{{ reqly_collector_url }}/docs" target="_blank" rel="noopener" class="btn btn-reqly-ghost">Collector API</a>
             {% endif %}
+            <a href="https://reqly.tanisheesh.in/docs/" target="_blank" rel="noopener" class="btn btn-reqly-ghost">Reqly docs</a>
         </div>
     </div>
 

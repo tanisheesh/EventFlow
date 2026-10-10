@@ -21,13 +21,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
-# Reqly — auto-instrument all routes
-reqly.instrument(
-    app,
-    service_name="eventflow",
-    collector_url=os.environ.get("REQLY_COLLECTOR_URL", "http://localhost:8000"),
-    api_key=os.environ.get("REQLY_API_KEY", ""),
-)
+def reqly_consumer(info):
+    """Reqly consumer id: the logged-in user. The SDK hashes it with
+    REQLY_CONSUMER_SALT, so the collector never sees a raw user id."""
+    user_id = session.get('user_id')
+    return str(user_id) if user_id is not None else None
+
+# Reqly — auto-instrument all routes. REQLY_COLLECTOR_URL, REQLY_API_KEY,
+# REQLY_ENVIRONMENT and REQLY_CONSUMER_SALT come from the environment; the
+# release is picked up from RENDER_GIT_COMMIT on Render.
+reqly.instrument(app, service_name="eventflow", consumer=reqly_consumer)
 
 # Add context processor for current year and Reqly config
 @app.context_processor
