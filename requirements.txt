@@ -1,5 +1,5 @@
 Flask>=3.1.3
-reqly>=0.5.4
+reqly>=0.5.6
 Flask-SQLAlchemy==3.1.1
 SQLAlchemy==2.1.4
 Werkzeug>=3.1.9
