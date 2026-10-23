@@ -12,7 +12,7 @@
 | ORM | Flask-SQLAlchemy 3.0 on SQLAlchemy 1.4 |
 | Styling | Plain CSS (`static/css/style.css`), teal `#008080` theme |
 | Client JS | Vanilla JS (`static/js/`) for form validation |
-| Observability | Reqly Python SDK (`reqly>=0.5.4`) |
+| Observability | Reqly Python SDK (`reqly>=0.7.1`) |
 | Hosting | Render free web service, defined in `render.yaml` |
 
 ---
