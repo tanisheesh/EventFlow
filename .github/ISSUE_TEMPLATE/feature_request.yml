@@ -18,7 +18,7 @@ body:
     id: problem
     attributes:
       label: What problem does this solve?
-      placeholder: I want to share my weekly summary with my team, but I have to copy it by hand.
+      placeholder: Organizers can edit any event on the dashboard, even ones created by other organizers.
     validations:
       required: true
 
@@ -26,7 +26,7 @@ body:
     id: solution
     attributes:
       label: Proposed solution
-      placeholder: A "Copy as Markdown" button on the weekly summary card.
+      placeholder: Restrict organizer event edit/delete endpoints so organizers only manage events where organizer_id matches their session user_id.
     validations:
       required: true
 

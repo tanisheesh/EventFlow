@@ -1,0 +1,104 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  TANISH'S SETUP TOOLKIT · tanisheesh.in                              ║
+# ║  CodeRabbit AI PR review config. Goes to: <repo>/.coderabbit.yaml    ║
+# ║  Works as-is on public repos (free tier) and reads AGENTS.md.        ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+language: "en-US"
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: "chill"
+  high_level_summary: true
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: true
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  poem: false
+  review_status: true
+  commit_status: true
+  enable_prompt_for_ai_agents: true
+
+  slop_detection:
+    enabled: true
+
+  auto_review:
+    enabled: true
+    drafts: false
+    auto_incremental_review: true
+
+  path_filters:
+    - "!**/*.lock"
+    - "!**/uv.lock"
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"
+    - "!**/instance/**"
+    - "!**/*.db"
+    - "!**/coverage/**"
+    - "!**/playwright-report/**"
+
+  path_instructions:
+    - path: "**/*.py"
+      instructions: |
+        - Verify strict input validation and type coercion before DB writes (no mass assignment).
+        - Verify both authentication (`@login_required` / `@organizer_required`) AND resource ownership/authorization checks (prevent IDOR).
+        - Flag any hardcoded fallback secrets, unparameterized SQL, or silent exception swallowing.
+        - Ensure multi-table DB mutations run inside explicit transactions with rollback on failure.
+        - Prefer SQLAlchemy 2.x `db.session.get()` / `db.select()` over legacy `Model.query.get()`.
+    - path: "templates/**"
+      instructions: |
+        - Enforce EventFlow's existing CSS tokens and layout extending `layout.html`.
+        - Flag AI-slop UI clichés (purple/pink gradients, neon glows, fake hardcoded metrics, emoji UI headings, dead `href="#"` links).
+        - Check semantic HTML (`<button>`, `<label>`, `<main>`), Jinja2 auto-escaping (no unescaped user content), accessibility, and responsive overflow safety.
+    - path: "**/{tests,test,e2e,__tests__}/**"
+      instructions: |
+        - Verify real assertions on behavior, edge cases, and failure/redirect status codes (302/400/401/403/404).
+        - Flag skipped tests or tests that mock away the database/route logic being tested.
+    - path: ".github/workflows/**"
+      instructions: |
+        - Check least-privilege permissions, pin/use Node 24 compatible action majors, target default branch `master`, and flag `pull_request_target` misuse or script injection from PR metadata.
+
+  tools:
+    actionlint:
+      enabled: true
+    zizmor:
+      enabled: true
+    gitleaks:
+      enabled: true
+    opengrep:
+      enabled: true
+    trivy:
+      enabled: true
+    osvScanner:
+      enabled: true
+    eslint:
+      enabled: true
+    ruff:
+      enabled: true
+    markdownlint:
+      enabled: true
+    hadolint:
+      enabled: true
+    psscriptanalyzer:
+      enabled: true
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "AGENTS.md"
+  learnings:
+    scope: "auto"
+
+# ──────────────────────────────────────────────────────────────────────────
+#  Tanish Poddar
+#  Website   https://tanisheesh.in
+#  LinkedIn  https://linkedin.com/in/tanisheesh
+#  GitHub    https://github.com/tanisheesh
+#  Email     hi@tanisheesh.in
+# ──────────────────────────────────────────────────────────────────────────

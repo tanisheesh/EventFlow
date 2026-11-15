@@ -20,7 +20,7 @@ body:
     attributes:
       label: What happened?
       description: A clear description of the bug.
-      placeholder: When I click "Sync", the dashboard shows an empty state even though I have commits.
+      placeholder: When I try to book a ticket, the order succeeds but ticket stock doesn't decrement.
     validations:
       required: true
 
@@ -28,7 +28,7 @@ body:
     id: expected
     attributes:
       label: What did you expect?
-      placeholder: The dashboard should list my latest commits.
+      placeholder: Ticket stock should decrement by the booked quantity in the same transaction.
     validations:
       required: true
 
@@ -59,8 +59,8 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Browser / OS / runtime version, whatever is relevant.
-      placeholder: Chrome 129 on Windows 11 · Node 22
+      description: Browser / OS / Python runtime version, whatever is relevant.
+      placeholder: Chrome 129 on Windows 11 · Python 3.12
 
   - type: textarea
     id: logs
