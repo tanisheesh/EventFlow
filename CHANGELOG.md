@@ -8,7 +8,10 @@ All notable changes to **EventFlow** are documented here.
 
 ### 🐛 Fixed
 - Administrators no longer get an error on every page (broken Admin link in the nav)
-- The Manage Organizers page loads, shows each organizer's event count, and deleting an organizer works
+- The Manage Organizers page loads, shows each organizer's event count, and deleting an organizer works cleanly
+
+### 👆 Dependencies
+- Upgraded `reqly` (`>=0.7.1`), `Flask` (`>=3.1.3`), `Flask-SQLAlchemy` (`3.1.1`), `SQLAlchemy` (`2.1.8`), `Werkzeug` (`>=3.1.9`), `bcrypt` (`>=5.0.0`), `python-dotenv` (`>=1.2.4`), and `gunicorn` (`>=26.2.0`)
 
 ---
 

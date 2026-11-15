@@ -47,7 +47,7 @@ You'll be kept updated throughout, and credited in the release notes once it's f
 
 - This repository's source code
 - The live deployment at https://eventflow-g2h5.onrender.com
-- Authentication, sessions and role checks, ticket booking and cancellation, data access between users
+- Authentication, sessions and role checks, ticket booking and cancellation, data access controls between users
 
 **Out of scope**
 
