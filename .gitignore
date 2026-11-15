@@ -140,3 +140,10 @@ Thumbs.db
 .env.test
 .env.production
 .env.*.local
+
+# Launch video output
+brag-output/
+
+# Private keys & certificates
+*.pem
+*.key
